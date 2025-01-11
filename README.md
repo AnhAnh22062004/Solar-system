@@ -1,6 +1,9 @@
 # Solar System ( Three.js )
 
-![alt text](./public/preview.png)
+
+<p align="center">
+   <img src="./public/preview.png" alt="preview.png" />
+</p>
 
 The Solar System is a simple representation of the eight planets (yes, Pluto is no longer considered a planet) orbiting the Sun. The inspiration for this project came from a client's representative whose project I worked on. Yes, that's you—the one who believes the Earth is flat. In general, this project is just an example of using [Three.js](https://threejs.org/) to create cool animations. More about how it was build can be found in this [article](https://dev.to/cookiemonsterdev/solar-system-with-threejs-3fe0).
 
