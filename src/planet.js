@@ -20,6 +20,7 @@ export class Planet {
   animate;
   planetGroup;
   planetGeometry;
+  planetMesh;
 
   constructor({
     orbitSpeed = 1,
@@ -83,6 +84,7 @@ export class Planet {
     this.planetGroup.position.x = this.orbitRadius - this.planetSize / 9;
     this.planetGroup.rotation.z = this.planetAngle;
     this.group.add(this.planetGroup);
+    this.planetMesh = planetMesh;
   }
 
   createGlow(rimHex, facingHex) {
