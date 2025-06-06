@@ -46,3 +46,55 @@ npm run dev
 
 Nếu bạn gặp bất kỳ vấn đề nào trong quá trình cài đặt hoặc chạy ứng dụng, hãy kiểm tra lại các bước cài đặt hoặc tham khảo tài liệu của [Three.js](https://threejs.org/docs/index.html#manual/en/introduction/Introduction) để biết thêm thông tin.
 
+<div id="audio-controls" style="position: fixed; top: 10px; right: 10px; background: rgba(0, 0, 0, 0.7); padding: 10px; border-radius: 5px; z-index: 1000;">
+    <button id="mute-btn">Tắt âm thanh</button>
+    <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="1" style="margin-left: 10px;">
+</div>
+
+<script>
+// Khởi tạo âm thanh
+const clickSound = new Audio('/solar-system-threejs/assets/click.mp3');
+clickSound.volume = 1; // Đặt âm lượng mặc định
+
+// Lấy các phần tử điều khiển âm thanh
+const muteButton = document.getElementById('mute-btn');
+const volumeSlider = document.getElementById('volume-slider');
+
+// Xử lý sự kiện khi nhấn nút tắt/mở âm thanh
+muteButton.addEventListener('click', () => {
+    if (clickSound.volume > 0) {
+        clickSound.volume = 0; // Tắt âm thanh
+        muteButton.textContent = 'Bật âm thanh'; // Thay đổi văn bản nút
+    } else {
+        clickSound.volume = volumeSlider.value; // Bật âm thanh
+        muteButton.textContent = 'Tắt âm thanh'; // Thay đổi văn bản nút
+    }
+});
+
+// Xử lý sự kiện khi điều chỉnh thanh trượt âm lượng
+volumeSlider.addEventListener('input', (event) => {
+    clickSound.volume = event.target.value; // Cập nhật âm lượng
+    if (clickSound.volume > 0) {
+        muteButton.textContent = 'Tắt âm thanh'; // Cập nhật văn bản nút
+    } else {
+        muteButton.textContent = 'Bật âm thanh'; // Cập nhật văn bản nút
+    }
+});
+
+// Hàm xử lý nhấp chuột vào hành tinh
+function onPointerDown(event) {
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+    raycaster.setFromCamera(mouse, camera);
+
+    const intersects = raycaster.intersectObjects(planetMeshes, true);
+
+    if (intersects.length > 0) {
+        clickSound.currentTime = 0; // Đặt lại thời gian phát
+        clickSound.play(); // Phát âm thanh
+        // ... existing code to show planet info ...
+    }
+}
+</script>
+
