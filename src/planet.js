@@ -21,6 +21,9 @@ export class Planet {
   planetGroup;
   planetGeometry;
   planetMesh;
+  orbitMaterial;
+  orbitMesh;
+  haloGroup;
 
   constructor({
     orbitSpeed = 1,
@@ -59,26 +62,29 @@ export class Planet {
     this.createRings();
     this.createPlanet();
     this.createGlow(rimHex, facingHex);
-
+    this.createHalo();
     this.animate = this.createAnimateFunction();
     this.animate();
   }
 
   createOrbit() {
     const orbitGeometry = new TorusGeometry(this.orbitRadius, 0.01, 100);
-    const orbitMaterial = new MeshBasicMaterial({
-      color: 0xadd8e6,
+    this.orbitMaterial = new MeshBasicMaterial({
+      color: 0x00ffff,
       side: DoubleSide,
+      transparent: true,
+      opacity: 0.5,
+      linewidth: 2
     });
-    const orbitMesh = new Mesh(orbitGeometry, orbitMaterial);
-    orbitMesh.rotation.x = Math.PI / 2;
-    this.group.add(orbitMesh);
+    this.orbitMesh = new Mesh(orbitGeometry, this.orbitMaterial);
+    this.orbitMesh.rotation.x = Math.PI / 2;
+    this.group.add(this.orbitMesh);
   }
 
   createPlanet() {
     const map = this.loader.load(this.planetTexture);
-    const planetMaterial = new MeshPhongMaterial({ map });
-    planetMaterial.map.colorSpace = SRGBColorSpace;
+    // Luôn sáng, không đổ bóng
+    const planetMaterial = new MeshBasicMaterial({ map });
     const planetMesh = new Mesh(this.planetGeometry, planetMaterial);
     this.planetGroup.add(planetMesh);
     this.planetGroup.position.x = this.orbitRadius - this.planetSize / 9;
@@ -160,12 +166,33 @@ export class Planet {
     this.planetGroup.add(ringMeshs);
   }
 
+  createHalo() {
+    this.haloGroup = new Group();
+    const haloCount = Math.floor(Math.random() * 10) + 1;
+    const baseRadius = this.planetSize * 1.28;
+    for (let i = 0; i < haloCount; i++) {
+      const phi = Math.acos(2 * Math.random() - 1);
+      const theta = Math.random() * Math.PI * 2;
+      const r = baseRadius + Math.random() * 0.12;
+      const x = r * Math.sin(phi) * Math.cos(theta);
+      const y = r * Math.sin(phi) * Math.sin(theta);
+      const z = r * Math.cos(phi);
+      const mat = new MeshBasicMaterial({ color: 0xfff700, transparent: true, opacity: 1 });
+      const sphere = new Mesh(new IcosahedronGeometry(this.planetSize * 0.04, 2), mat);
+      sphere.position.set(x, y, z);
+      this.haloGroup.add(sphere);
+    }
+    this.planetGroup.add(this.haloGroup);
+  }
+
   createAnimateFunction() {
     return () => {
       requestAnimationFrame(this.animate);
-
       this.updateOrbitRotation();
       this.updatePlanetRotation();
+      if (this.haloGroup) {
+        this.haloGroup.rotation.y += 0.008;
+      }
     };
   }
 

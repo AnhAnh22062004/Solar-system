@@ -1,0 +1,141 @@
+\documentclass[14pt]{extarticle}
+\usepackage[utf8]{inputenc} 
+\usepackage[vietnamese]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=2cm,right=2cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{indentfirst}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{titlesec}
+\usepackage{multicol} 
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{anyfontsize}
+\usepackage{setspace}
+\usepackage{amssymb}
+\usepackage[a4paper, margin=1in]{}
+% ----------------------------------------------------%
+\titleformat{\subsection}[hang]{\normalfont\large\bfseries}{\hspace{1em}\thesubsection}{1em}{}
+\titleformat{\subsubsection}[hang]{\normalfont\normalsize\bfseries}{\hspace{1em}\thesubsubsection}{1em}{}
+\setlength{\parskip}{0.75em}
+\begin{document}
+\onehalfspacing
+\begin{center}
+    \includegraphics[width=5cm]{logo.png} \\[1em]
+    \textbf{\normalsize  TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN} \\[0.7em]
+    \textbf{\small CS105.P21 - Đồ Họa Máy Tính} \\[2em]
+    {\Large \textbf{Simulating the Solar System with Three.js}} \\[1.5em]
+    \begin{tabular}{c@{\hspace{3cm}}c}
+    Trương Huỳnh Thúy An & Trương Hồng Anh \\[0.5em]
+    22520033 & 22520084 \\[1.5em]
+    \end{tabular}
+\end{center}
+\tableofcontents
+\newpage
+\section{Giới thiệu đồ án}
+Trong thời đại công nghệ số hiện nay, đồ họa máy tính đã trở thành một phần không thể thiếu trong nhiều lĩnh vực, từ giải trí đến giáo dục và nghiên cứu khoa học. Đồ án này nhằm mục đích xây dựng một mô hình 3D của hệ mặt trời bằng cách sử dụng thư viện Three.js, một công cụ mạnh mẽ cho việc phát triển đồ họa 3D trên nền tảng web.
+
+Mô hình hệ mặt trời không chỉ giúp người dùng có cái nhìn trực quan về các hành tinh và quỹ đạo của chúng mà còn cung cấp một nền tảng để khám phá các khái niệm vật lý và thiên văn học. Thông qua việc sử dụng Three.js, chúng tôi có thể tạo ra các đối tượng 3D, ánh sáng, và hiệu ứng động, mang lại trải nghiệm tương tác phong phú cho người dùng.
+
+Mục tiêu chính của đồ án là phát triển một ứng dụng web cho phép người dùng tương tác với mô hình hệ mặt trời, bao gồm việc quay quanh các hành tinh, phóng to, thu nhỏ và tìm hiểu thông tin về từng hành tinh. Ứng dụng này không chỉ phục vụ cho mục đích giáo dục mà còn có thể được sử dụng trong các dự án nghiên cứu và phát triển phần mềm trong tương lai.
+
+Đồ án sẽ được chia thành nhiều phần, bao gồm khảo sát các ứng dụng hiện có, thiết kế và phát triển giao diện người dùng, cũng như triển khai các chức năng chính của mô hình. Chúng tôi hy vọng rằng sản phẩm cuối cùng sẽ không chỉ là một mô hình 3D đơn thuần mà còn là một công cụ học tập hữu ích cho sinh viên và những người yêu thích thiên văn học.
+
+Thông qua việc thực hiện đồ án này, chúng tôi mong muốn nâng cao kỹ năng lập trình, thiết kế đồ họa và hiểu biết về các khái niệm trong đồ họa máy tính, đồng thời tạo ra một sản phẩm có giá trị cho cộng đồng.
+\section{Khảo sát các ứng dụng hoặc các đề tài khác có liên quan hoặc đã có}
+Trong lĩnh vực đồ họa máy tính, có nhiều ứng dụng và dự án nghiên cứu đã được thực hiện liên quan đến mô hình hóa và mô phỏng hệ mặt trời. Một số ứng dụng tiêu biểu bao gồm:
+
+\subsection{NASA Eyes on the Solar System}
+NASA đã phát triển một ứng dụng web có tên là "Eyes on the Solar System" cho phép người dùng khám phá hệ mặt trời theo thời gian thực. Ứng dụng này sử dụng công nghệ đồ họa 3D để mô phỏng các hành tinh, vệ tinh và tàu vũ trụ, cung cấp cho người dùng cái nhìn trực quan về các sự kiện thiên văn.
+
+\subsection{Solar System Scope}
+Solar System Scope là một ứng dụng tương tác cho phép người dùng khám phá hệ mặt trời và các hành tinh của nó. Ứng dụng này cung cấp thông tin chi tiết về các hành tinh, quỹ đạo của chúng và các hiện tượng thiên văn khác. Nó sử dụng đồ họa 3D để tạo ra một trải nghiệm tương tác phong phú cho người dùng.
+
+\subsection{Universe Sandbox}
+Universe Sandbox là một phần mềm mô phỏng vũ trụ cho phép người dùng tạo ra và khám phá các hệ thống thiên văn. Phần mềm này cho phép người dùng tương tác với các hành tinh, sao và các hiện tượng thiên văn khác, đồng thời cung cấp các công cụ để mô phỏng các sự kiện như va chạm giữa các thiên thể.
+
+\subsection{Các nghiên cứu liên quan}
+Nhiều nghiên cứu đã được thực hiện để cải thiện các mô hình và thuật toán trong đồ họa máy tính, đặc biệt là trong việc mô phỏng các hiện tượng thiên văn. Các nghiên cứu này thường tập trung vào việc tối ưu hóa hiệu suất đồ họa, cải thiện độ chính xác của các mô hình vật lý và phát triển các công nghệ mới để tạo ra các trải nghiệm tương tác tốt hơn.
+
+Những ứng dụng và nghiên cứu này không chỉ cung cấp cho người dùng cái nhìn sâu sắc về hệ mặt trời mà còn mở ra nhiều cơ hội cho việc phát triển các công nghệ mới trong lĩnh vực đồ họa máy tính.
+\section{Các chức năng chính của đồ án}
+Đồ án mô phỏng hệ mặt trời với Three.js bao gồm nhiều chức năng chính, giúp người dùng tương tác và khám phá mô hình 3D của hệ mặt trời. Dưới đây là một số chức năng nổi bật:
+
+\subsection{Tương tác với các hành tinh}
+Người dùng có thể tương tác với các hành tinh trong mô hình, bao gồm việc nhấp chuột vào các hành tinh để xem thông tin chi tiết về chúng. Thông tin này có thể bao gồm tên, kích thước, khoảng cách từ mặt trời, và các đặc điểm khác.
+
+\subsection{Quay quanh các hành tinh}
+Ứng dụng cho phép người dùng quay quanh các hành tinh để có cái nhìn toàn cảnh về chúng. Điều này giúp người dùng hiểu rõ hơn về vị trí và quỹ đạo của các hành tinh trong hệ mặt trời.
+
+\subsection{Phóng to và thu nhỏ}
+Người dùng có thể phóng to hoặc thu nhỏ mô hình để xem các chi tiết của các hành tinh và các đối tượng khác trong hệ mặt trời. Chức năng này giúp cải thiện trải nghiệm người dùng và cho phép họ khám phá các chi tiết mà không bị giới hạn bởi kích thước màn hình.
+
+\subsection{Mô phỏng quỹ đạo}
+Hệ thống mô phỏng quỹ đạo của các hành tinh xung quanh mặt trời, cho phép người dùng thấy được chuyển động của các hành tinh theo thời gian. Điều này không chỉ mang lại trải nghiệm trực quan mà còn giúp người dùng hiểu rõ hơn về các khái niệm vật lý liên quan đến chuyển động của các thiên thể.
+
+\subsection{Âm thanh và hiệu ứng}
+Ứng dụng tích hợp âm thanh và hiệu ứng để tạo ra một trải nghiệm sống động hơn. Khi người dùng tương tác với các hành tinh, âm thanh có thể được phát để tăng cường cảm giác thực tế.
+
+Những chức năng này không chỉ giúp người dùng khám phá hệ mặt trời một cách trực quan mà còn cung cấp một nền tảng học tập phong phú cho những ai quan tâm đến thiên văn học.
+\section{Cơ sở lý thuyết thực hiện đồ án}
+Trình bày các lý thuyết, công nghệ và phương pháp mà bạn đã sử dụng để thực hiện đồ án. Bạn có thể đề cập đến các khái niệm cơ bản trong đồ họa máy tính, các thuật toán, hoặc các thư viện mà bạn đã sử dụng.
+\section{Chương trình: Mô tả chức năng và hình ảnh minh họa cho chương trình}
+Chương trình mô phỏng hệ mặt trời được xây dựng bằng cách sử dụng thư viện Three.js, cho phép tạo ra các đối tượng 3D và mô phỏng các hiện tượng thiên văn. Dưới đây là mô tả chi tiết về các chức năng của chương trình cùng với hình ảnh minh họa.
+
+\subsection{Giao diện người dùng}
+Giao diện người dùng của chương trình được thiết kế đơn giản và trực quan, cho phép người dùng dễ dàng tương tác với mô hình hệ mặt trời. Hình ảnh dưới đây minh họa giao diện chính của ứng dụng:
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{ui_interface.png}
+    \caption{Giao diện người dùng của chương trình}
+    \label{fig:ui_interface}
+\end{figure}
+
+\subsection{Mô phỏng các hành tinh}
+Chương trình cho phép mô phỏng các hành tinh trong hệ mặt trời, bao gồm việc hiển thị các hành tinh với kích thước và màu sắc khác nhau. Mỗi hành tinh có thể được nhấp vào để xem thông tin chi tiết. Hình ảnh dưới đây minh họa các hành tinh trong mô hình:
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{planets.png}
+    \caption{Mô phỏng các hành tinh trong hệ mặt trời}
+    \label{fig:planets}
+\end{figure}
+
+\subsection{Chức năng tương tác}
+Người dùng có thể tương tác với các hành tinh bằng cách nhấp chuột vào chúng. Khi nhấp vào một hành tinh, thông tin chi tiết sẽ được hiển thị, bao gồm tên, kích thước, và khoảng cách từ mặt trời. Hình ảnh dưới đây minh họa thông tin hiển thị khi người dùng nhấp vào một hành tinh:
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{planet_info.png}
+    \caption{Thông tin chi tiết về hành tinh}
+    \label{fig:planet_info}
+\end{figure}
+
+\subsection{Hiệu ứng âm thanh}
+Chương trình cũng tích hợp âm thanh để tạo ra trải nghiệm sống động hơn. Khi người dùng tương tác với các hành tinh, âm thanh sẽ được phát để tăng cường cảm giác thực tế. Hình ảnh dưới đây minh họa các hiệu ứng âm thanh trong chương trình:
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{sound_effects.png}
+    \caption{Hiệu ứng âm thanh trong chương trình}
+    \label{fig:sound_effects}
+\end{figure}
+
+Những chức năng này không chỉ giúp người dùng khám phá hệ mặt trời một cách trực quan mà còn cung cấp một nền tảng học tập phong phú cho những ai quan tâm đến thiên văn học.
+\section{Phân công công việc các thành viên trong nhóm}
+Liệt kê các thành viên trong nhóm và mô tả công việc mà mỗi người đã thực hiện trong đồ án.
+\begin{itemize}
+    \item Thành viên 1: Mô tả công việc.
+    \item Thành viên 2: Mô tả công việc.
+    \item Thành viên 3: Mô tả công việc.
+\end{itemize}
+\section{Kết luận và hướng phát triển}
+Trình bày các chức năng đã thực hiện được và chưa thực hiện được, cũng như hướng phát triển trong tương lai cho đồ án. Bạn có thể nêu rõ những thách thức mà bạn đã gặp phải và cách bạn dự định giải quyết chúng.
+\section{Tài liệu tham khảo}
+Liệt kê các tài liệu tham khảo mà bạn đã sử dụng trong quá trình thực hiện đồ án.
+\begin{itemize}
+    \item Tài liệu 1: Mô tả tài liệu.
+    \item Tài liệu 2: Mô tả tài liệu.
+\end{itemize}
+\end{document} 

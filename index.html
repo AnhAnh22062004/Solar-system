@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Solar System</title>
     <meta name="description" content="Solar system made using by Three.js" />
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
+
     <style>
       body {
         margin: 0;
@@ -137,6 +140,226 @@
         animation: letter-intro-anim 1000ms ease-in-out forwards;
         animation-delay: 1000ms;
       }
+
+      .ui-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: none;
+        background: rgba(30, 30, 40, 0.85);
+        color: #ffe81f;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 16px 0 rgba(0,0,0,0.45), 0 1.5px 4px 0 #222;
+        cursor: pointer;
+        transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+        outline: none;
+        border: 2px solid rgba(255,232,31,0.25);
+        backdrop-filter: blur(2.5px);
+        position: relative;
+      }
+      .ui-btn:hover, .ui-btn:focus {
+        background: rgba(60, 60, 80, 0.92);
+        box-shadow: 0 6px 24px 0 rgba(0,0,0,0.55), 0 2px 8px 0 #222;
+        transform: scale(1.08);
+        color: #fffbe0;
+        border-color: #ffe81f;
+      }
+      .ui-btn svg {
+        width: 18px;
+        height: 18px;
+        display: block;
+        margin: auto;
+      }
+      #ui-buttons {
+        position: fixed;
+        top: 24px;
+        right: 24px;
+        z-index: 1100;
+        display: flex;
+        gap: 24px;
+        pointer-events: none;
+      }
+      #ui-buttons .ui-btn {
+        pointer-events: auto;
+      }
+      #music-panel {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: linear-gradient(135deg, #0a1120 80%, #0a1a2f 100%);
+        border: 1.5px solid #ffe81f;
+        box-shadow: 0 8px 40px #000b;
+        padding: 0;
+        z-index: 1300;
+        min-width: 420px;
+        min-height: 340px;
+        font-family: 'Orbitron', monospace;
+        color: #fff;
+        letter-spacing: 1px;
+        clip-path: polygon(12px 0, calc(100% - 12px) 0, 100% 12px, 100% calc(100% - 12px), calc(100% - 12px) 100%, 12px 100%, 0 calc(100% - 12px), 0 12px);
+        border-radius: 0;
+      }
+      #music-panel .panel-section {
+        border: 1.5px solid #ffe81f;
+        background: rgba(10, 20, 40, 0.85);
+        margin: 28px 28px 16px 28px;
+        padding: 16px 18px 12px 18px;
+        clip-path: polygon(6px 0, calc(100% - 6px) 0, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0 calc(100% - 6px), 0 6px);
+        border-radius: 0;
+        box-shadow: none;
+      }
+      #music-panel .panel-section:last-child {
+        margin-bottom: 0;
+      }
+      .panel-slider-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+        width: 100%;
+      }
+      .panel-slider-row:last-child {
+        margin-bottom: 0;
+      }
+      .panel-label {
+        min-width: 70px;
+        font-size: 1.08em;
+        font-weight: 700;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        justify-content: flex-end;
+      }
+      .panel-icon {
+        width: 18px;
+        height: 18px;
+        fill: #ffe81f;
+      }
+      .panel-slider {
+        flex: 1 1 0;
+        accent-color: #ffe81f;
+        background: linear-gradient(90deg, #ffe81f 60%, #fffbe0 100%);
+        height: 4px;
+        border-radius: 2px;
+        outline: none;
+        box-shadow: none;
+        margin-left: 0;
+        margin-right: 0;
+        max-width: 240px;
+      }
+      .panel-slider:focus {
+        box-shadow: 0 0 16px #ffe81fcc;
+      }
+      #music-panel-title {
+        font-size: 1.3em;
+        font-weight: 700;
+        margin-bottom: 6px;
+        color: #fff;
+        letter-spacing: 1.5px;
+        text-shadow: 0 0 8px #ffe81f55;
+      }
+      #music-panel-artist {
+        color: #ffe81f;
+        font-size: 1.08em;
+        font-weight: 500;
+        text-shadow: 0 0 6px #ffe81f33;
+      }
+      .panel-controls {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 22px;
+        margin: 18px 0 8px 0;
+      }
+      .panel-btn {
+        background: none;
+        border: 2px solid #ffe81f;
+        border-radius: 0;
+        color: #ffe81f;
+        font-size: 1.3em;
+        width: 44px;
+        height: 44px;
+        cursor: pointer;
+        box-shadow: 0 0 8px #ffe81f44;
+        transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        clip-path: polygon(4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px), 0 4px);
+      }
+      .panel-btn:hover, .panel-btn:focus {
+        background: #ffe81f22;
+        color: #fff;
+        box-shadow: 0 0 16px #ffe81f99;
+      }
+      #music-panel-playlist {
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 1.1em;
+        letter-spacing: 1px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin: auto;
+        margin-top: 8px;
+        text-shadow: 0 0 8px #ffe81f55;
+      }
+      #music-panel-close {
+        position: absolute;
+        top: 10px;
+        right: 16px;
+        background: none;
+        border: none;
+        color: #ffe81f;
+        font-size: 1.7em;
+        cursor: pointer;
+        text-shadow: 0 0 8px #ffe81f99;
+      }
+      #music-panel-close:hover {
+        color: #fff;
+        background: #ffe81f22;
+      }
+      /* MENU NHỎ - MUSIC MENU */
+      #music-menu {
+        display: none;
+        position: fixed;
+        top: 70px;
+        right: 40px;
+        background: linear-gradient(135deg, #1a1400 80%, #2a2100 100%);
+        color: #ffe81f;
+        border: 2.5px solid #ffe81f;
+        border-radius: 0;
+        box-shadow: 0 4px 24px #000a, 0 0 18px #ffe81f55;
+        padding: 12px 14px;
+        z-index: 1200;
+        min-width: 160px;
+        font-family: 'Orbitron', monospace;
+        clip-path: polygon(7px 0, calc(100% - 7px) 0, 100% 7px, 100% calc(100% - 7px), calc(100% - 7px) 100%, 7px 100%, 0 calc(100% - 7px), 0 7px);
+      }
+      #music-menu input[type=range] {
+        accent-color: #ffe81f;
+        background: linear-gradient(90deg, #ffe81f 60%, #fffbe0 100%);
+        box-shadow: 0 0 8px #ffe81f99;
+      }
+      #music-menu input[type=range]:focus {
+        box-shadow: 0 0 16px #ffe81fcc;
+      }
+      #music-menu select {
+        background: #222;
+        color: #ffe81f;
+        border-radius: 6px;
+        padding: 4px 6px;
+        border: 1.5px solid #ffe81f;
+        font-family: 'Orbitron', monospace;
+      }
     </style>
   </head>
   <body>
@@ -173,6 +396,54 @@
     </div>
     <div id="planet-info" style="display:none; position:fixed; top:10%; right:5%; background:rgba(0,0,0,0.8); color:#fff; padding:20px; border-radius:10px; z-index:1000; max-width:300px;"></div>
     <div id="planet-compare" style="display:none; position:fixed; top:10%; left:5%; background:rgba(0,0,0,0.9); color:#fff; padding:20px; border-radius:10px; z-index:1000; max-width:400px;"></div>
+    <div id="ui-buttons">
+      <button id="music-toggle" class="ui-btn music-btn" title="Bật/Tắt nhạc">
+        <span id="music-icon">
+          <!-- SVG icon sẽ được thay bằng JS -->
+        </span>
+      </button>
+      <button id="view-toggle" class="ui-btn view-btn" title="Xem toàn cảnh">
+        <span id="view-icon">
+          <!-- SVG icon sẽ được thay bằng JS -->
+        </span>
+      </button>
+    </div>
+    <div id="music-menu" style="display:none; position:fixed; top:70px; right:40px; background:rgba(20,20,30,0.97); color:#00ffff; border-radius:12px; padding:18px 22px; z-index:1200; min-width:220px; font-family: 'Orbitron', sans-serif; font-size:14px; letter-spacing: 0.5px; text-transform: uppercase;">
+      <div style="margin-bottom:12px; font-weight:400; font-size:10px;">Âm lượng nhạc</div>
+      <input id="music-volume-slider" type="range" min="0" max="1" step="0.01" value="0.5" style="width:100%;">
+      
+      <div style="margin:14px 0 8px 0; font-weight:600; font-size:16px;">Chọn nhạc</div>
+      <select id="music-track-select" style="width:100%; background:#111; color:#00ffff; border-radius:6px; padding:4px 6px; font-family: 'Orbitron', sans-serif; font-size:10px;">
+        <option value="0">Track 1</option>
+        <option value="1">Track 2</option>
+        <option value="2">Track 3</option>
+        <option value="3">Track 4</option>
+      </select>
+    </div>
+    
+    <div id="music-panel">
+      <div class="panel-section">
+        <div class="panel-slider-row">
+          <span class="panel-label">MUSIC <svg class="panel-icon" viewBox="0 0 24 24"><path d="M3 10v4h2l5 5V5L5 10H3zm13.5 2c0-1.77-1.02-3.29-2.5-4.03v8.06c1.48-.74 2.5-2.26 2.5-4.03z"/></svg></span>
+          <input id="music-panel-music-slider" type="range" min="0" max="1" step="0.01" value="0.5" class="panel-slider">
+        </div>
+        <div class="panel-slider-row">
+          <span class="panel-label">SFX <svg class="panel-icon" viewBox="0 0 24 24"><path d="M3 10v4h2l5 5V5L5 10H3zm13.5 2c0-1.77-1.02-3.29-2.5-4.03v8.06c1.48-.74 2.5-2.26 2.5-4.03z"/></svg></span>
+          <input id="music-panel-sfx-slider" type="range" min="0" max="1" step="0.01" value="0.5" class="panel-slider">
+        </div>
+      </div>
+      <div class="panel-section" style="text-align:center;">
+        <div id="music-panel-title">Tên bài hát</div>
+        <div id="music-panel-artist">Tên tác giả</div>
+      </div>
+      <div class="panel-controls">
+        <button id="music-panel-prev" class="panel-btn" title="Bài trước"><svg class="panel-icon" viewBox="0 0 24 24"><path d="M6 18V6h2v12H6zm3.5-6l8.5 6V6l-8.5 6z"/></svg></button>
+        <button id="music-panel-play" class="panel-btn" title="Phát/Tạm dừng"><svg class="panel-icon" id="music-panel-play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+        <button id="music-panel-next" class="panel-btn" title="Bài tiếp"><svg class="panel-icon" viewBox="0 0 24 24"><path d="M16 6v12h-2V6h2zm-3.5 6L4 6v12l8.5-6z"/></svg></button>
+      </div>
+      <button id="music-panel-playlist"><span style="font-size:1.3em;">&#9776;</span> PLAYLIST</button>
+      <button id="music-panel-close">&times;</button>
+    </div>
     <script>
       window.addEventListener("load", () => {
         const loader = document.getElementById("loader");
@@ -183,3 +454,4 @@
     <script defer type="module" src="/src/index.js"></script>
   </body>
 </html>
+
